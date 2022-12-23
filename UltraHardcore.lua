@@ -43,6 +43,7 @@ WriteByte(0x24BC8D6, 200) -- Defense Stat
 	if ReadByte(Slot1+0x0) > 1 then
 	WriteByte(Slot1+0x4, ReadByte(Slot1+0x0))
 	else WriteByte(Slot1+0x4, 1)
+	end
 	if ReadByte(Slot1+0x0) == 0 then
 		Dead = 1
 	end
