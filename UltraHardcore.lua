@@ -1,3 +1,4 @@
+Dead = 0
 function _OnFrame()
     World = ReadByte(Now + 0x00)
     Room = ReadByte(Now + 0x01)
@@ -42,5 +43,14 @@ WriteByte(0x24BC8D6, 200) -- Defense Stat
 	if ReadByte(Slot1+0x0) > 1 then
 	WriteByte(Slot1+0x4, ReadByte(Slot1+0x0))
 	else WriteByte(Slot1+0x4, 1)
+	if ReadByte(Slot1+0x0) == 0 then
+		Dead = 1
+	end
+	if Dead == 1 and ReadByte(Slot1+0x0) < 60 then
+		WriteByte(Slot1+0x4, 60)
+		WriteByte(Slot1+0x0, 60)
+		Dead = 0
+	elseif Dead == 1 and ReadByte(Slot1+0x0) >= 60 then
+		Dead = 0
 	end
 end
