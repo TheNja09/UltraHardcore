@@ -35,15 +35,17 @@ function Events(M,B,E) --Check for Map, Btl, and Evt
 end
 
 function Cheats()
+local SavedHP = ReadByte(Slot1+0x4)
+	if ReadByte(Slot1+0x0) < SavedHP and ReadByte(Slot1+0x4) > 0 then
+		WriteByte(Slot1+0x4, SavedHP - 1)
+		SavedHP = ReadByte(Slot1+0x4)
+		WriteByte(Slot1+0x0, SavedHP)
+	end
 	if ReadShort(Now+0) == 0x2002 and ReadShort(Now+8) == 0x01 then -- Sets your HP in the first room of rando
 		WriteByte(Slot1+0x4, 200)
 		WriteByte(Slot1+0x0, 200)
 	end
 WriteByte(0x24BC8D6, 200) -- Defense Stat
-	if ReadByte(Slot1+0x0) > 1 then
-	WriteByte(Slot1+0x4, ReadByte(Slot1+0x0))
-	else WriteByte(Slot1+0x4, 1)
-	end
 	if ReadByte(Slot1+0x0) == 0 then
 		Dead = 1
 	end
