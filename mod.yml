@@ -1,5 +1,5 @@
 title: Ultra Hardcore
-description: This mod will start you with very high HP and a permanent 200 defense, but every HP loss will be permanent, with HP bonuses being the only way to replenish your HP.
+description: This mod will start you with very high HP and defense, but every HP loss will permanently decrease your HP by 1, with HP bonuses being the only way to replenish your HP.
 assets:
 #Lua Scripts
 - name: scripts/UltraHardcore.lua
