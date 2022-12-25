@@ -36,34 +36,5 @@ function Events(M,B,E) --Check for Map, Btl, and Evt
 end
 
 function Cheats()
-CurrentMAXHP = ReadByte(Slot1+0x4)
-CurrentHP = ReadByte(Slot1+0x0)
-	if ReadShort(Now+0) == 0x2002 and ReadShort(Now+8) == 0x01 then -- Sets your HP in the first room of rando
-		WriteByte(Slot1+0x4, 150)
-		WriteByte(Slot1+0x0, 150)
-		Dead = 0
-		SavedHP = 150
-	end
-print(SavedHP)
-	if SavedHP < CurrentHP or SavedHP < CurrentMAXHP then
-	WriteByte(Slot1+0x4, SavedHP)
-	WriteByte(Slot1+0x0, SavedHP)
-	SavedHP = SavedHP
-	end
-	if CurrentHP < CurrentMAXHP then
-		WriteByte(Slot1+0x4, ReadByte(Slot1+0x0))
-		SavedHP = ReadByte(Slot1+0x0)
-	end
-WriteByte(0x24BC8D6, 200) -- Defense Stat 
-	if CurrentHP == 0 and CurrentMAXHP == 0 then
-		Dead = 1
-	end
-	if Dead == 1 and CurrentMAXHP > 5 then
-		WriteByte(Slot1+0x4, ReadByte(Slot1+0x4) - 1)
-		WriteByte(Slot1+0x0, ReadByte(Slot1+0x0) - 1)
-		SavedHP = CurrentMAXHP
-	elseif Dead == 1 and CurrentMAXHP <= 5 and CurrentMAXHP > 0 then
-		Dead = 0
-		SavedHP = CurrentMAXHP
-	end
+
 end
