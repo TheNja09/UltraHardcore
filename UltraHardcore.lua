@@ -1,4 +1,5 @@
 Dead = 0
+SavedHP = 150
 function _OnFrame()
     World = ReadByte(Now + 0x00)
     Room = ReadByte(Now + 0x01)
@@ -35,25 +36,31 @@ function Events(M,B,E) --Check for Map, Btl, and Evt
 end
 
 function Cheats()
-CurrentMAXHP = ReadByte(Slot1+0x4)
-CurrentHP = ReadByte(Slot1+0x0)
+SoraCurrentMAXHP = ReadByte(Save+0x24F4)
+SoraCurrentHP = ReadByte(Save+0x24F4)
+--MickeyMAXHP = ReadByte(Save+0x2831)
 	if ReadShort(Now+0) == 0x2002 and ReadShort(Now+8) == 0x01 then -- Sets your HP in the first room of rando
-		WriteByte(Slot1+0x4, 150)
-		WriteByte(Slot1+0x0, 150)
+		WriteByte(SoraCurrentMAXHP, 150)
+		WriteByte(SoraCurrentHP, 150)
 		Dead = 0
 		SavedHP = 150
 	end
+	if SoraCurrentHP < SoraCurrentMAXHP then
+		WriteByte(SoraCurrentMAXHP, ReadByte(Save+0x24F4) - 1)
+		SavedHP = SoraCurrentMAXHP
+		WriteByte(SoraCurrentHP, SavedHP)
+	end
 WriteByte(0x24BC8D6, 200) -- Defense Stat 
-	if CurrentHP == 0 and CurrentMAXHP == 0 then
+	if SoraCurrentHP == 0 and SoraCurrentMAXHP == 0 then
 		Dead = 1
 	end
-	if Dead == 1 and CurrentMAXHP < 20 then
-		WriteByte(Slot1+0x4, 20)
-		WriteByte(Slot1+0x0, 20)
-		SavedHP = CurrentMAXHP
+	if Dead == 1 and SoraCurrentMAXHP < 20 then
+		WriteByte(SoraCurrentMAXHP, 20)
+		WriteByte(SoraCurrentHP, 20)
+		SavedHP = SoraCurrentMAXHP
 		Dead = 0
-	elseif Dead == 1 and CurrentMAXHP >= 20 then
+	elseif Dead == 1 and SoraCurrentMAXHP >= 20 then
 		Dead = 0
-		SavedHP = CurrentMAXHP
+		SavedHP = SoraCurrentMAXHP
 	end
 end
