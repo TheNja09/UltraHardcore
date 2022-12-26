@@ -36,7 +36,7 @@ function Events(M,B,E) --Check for Map, Btl, and Evt
 end
 
 function Cheats()
-SoraCurrentMAXHP = ReadByte(Save+0x24F4)
+SoraCurrentMAXHP = ReadByte(Save+0x24F5)
 SoraCurrentHP = ReadByte(Save+0x24F4)
 --MickeyMAXHP = ReadByte(Save+0x2831)
 	if ReadShort(Now+0) == 0x2002 and ReadShort(Now+8) == 0x01 then -- Sets your HP in the first room of rando
@@ -46,7 +46,7 @@ SoraCurrentHP = ReadByte(Save+0x24F4)
 		SavedHP = 150
 	end
 	if SoraCurrentHP < SoraCurrentMAXHP then
-		WriteByte(SoraCurrentMAXHP, ReadByte(Save+0x24F4) - 1)
+		WriteByte(SoraCurrentMAXHP, ReadByte(Save+0x24F5) - 1)
 		SavedHP = SoraCurrentMAXHP
 		WriteByte(SoraCurrentHP, SavedHP)
 	end
