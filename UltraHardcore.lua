@@ -1,5 +1,4 @@
 Dead = 0
-SavedHP = 150
 function _OnFrame()
     World = ReadByte(Now + 0x00)
     Room = ReadByte(Now + 0x01)
@@ -36,5 +35,25 @@ function Events(M,B,E) --Check for Map, Btl, and Evt
 end
 
 function Cheats()
-
+CurrentMAXHP = ReadByte(Slot1+0x4)
+CurrentHP = ReadByte(Slot1+0x0)
+	if ReadShort(Now+0) == 0x2002 and ReadShort(Now+8) == 0x01 then -- Sets your HP in the first room of rando
+		WriteByte(Slot1+0x4, 150)
+		WriteByte(Slot1+0x0, 150)
+		Dead = 0
+		SavedHP = 150
+	end
+WriteByte(0x24BC8D6, 200) -- Defense Stat 
+	if CurrentHP == 0 and CurrentMAXHP == 0 then
+		Dead = 1
+	end
+	if Dead == 1 and CurrentMAXHP < 20 then
+		WriteByte(Slot1+0x4, 20)
+		WriteByte(Slot1+0x0, 20)
+		SavedHP = CurrentMAXHP
+		Dead = 0
+	elseif Dead == 1 and CurrentMAXHP >= 20 then
+		Dead = 0
+		SavedHP = CurrentMAXHP
+	end
 end
