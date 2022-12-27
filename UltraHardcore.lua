@@ -42,8 +42,9 @@ function Cheats()
 		Ready = 0
 		SavedHP = 150
 	end
-	if ReadByte(Slot1+0x0) == 0 then
+	if ReadByte(Slot1+0x0) == 0 and Ready == 0 then
 		Ready = 1
+		SavedHP = 10
 		WriteByte(Slot1+0x4, 10)
 	end
 	if ReadByte(Slot1+0x0) < ReadByte(Slot1+0x4) and ReadByte(Slot1+0x4) > 1 and Ready ~= 1 then
