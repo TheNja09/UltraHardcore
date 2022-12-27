@@ -1,8 +1,5 @@
-Dead = 0
 SavedHP = 150
 Ready = 0
-CurrentRoom = 0
-CurrentEvent = 0
 function _OnFrame()
     World = ReadByte(Now + 0x00)
     Room = ReadByte(Now + 0x01)
@@ -55,8 +52,8 @@ function Cheats()
 		WriteByte(Slot1+0x0, SavedHP)
 	end
 WriteByte(0x24BC8D6, 200) -- Defense Stat 
-	if Ready == 1 and ReadByte(Slot1+0x0) < 10 and ReadByte(Slot1+0x0) > 0 then
-		WriteByte(Slot1+0x0, 10)
+	if Ready == 1 and ReadByte(Slot1+0x4) < 10 and ReadByte(Slot1+0x0) > 0 then
+		WriteByte(Slot1+0x4, 10)
 		SavedHP = ReadByte(Slot1+0x4)
 		Ready = 0
 	elseif Ready == 1 and ReadByte(Slot1+0x0) > 0 and ReadByte(Slot1+0x4) >= 10 then
